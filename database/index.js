@@ -13,10 +13,10 @@ let repoSchema = new mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (/* TODO */) => {
-  // TODO: Your code here
+let save = (repos, callback) => {
   // This function should save a repo or repos to
   // the MongoDB
+  Repo.create(repos, callback);
 }
 
 module.exports.save = save;

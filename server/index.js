@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const github = require('../helpers/github.js');
+const db = require('../database');
 let app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
@@ -18,9 +19,6 @@ app.post('/repos', function (req, res) {
     }
 
     const githubRepos = JSON.parse(githubResponseBody);
-
-    console.log(githubRepos[0]);
-
     const repos = githubRepos.map(repo => {
       return ({
         repoId: repo.id,
@@ -33,9 +31,14 @@ app.post('/repos', function (req, res) {
       });
     });
 
-    console.log(repos[0]);
+    db.save(repos, (err, repos) => {
+      if (err) {
+        throw err;
+      }
 
-    res.send(repos[0]);
+      console.log(repos[0]);
+      res.send(repos[0]);
+    });
   });
 });
 
