@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
 
-let repoSchema = new mongoose.Schema({
+const repoSchema = new mongoose.Schema({
   repoId: { type: Number, unique: true },
   name: String,
   username: String,
@@ -11,10 +11,15 @@ let repoSchema = new mongoose.Schema({
   forksCount: Number,
 });
 
-let Repo = mongoose.model('Repo', repoSchema);
+const Repo = mongoose.model('Repo', repoSchema);
 
-let save = (repos, callback) => {
+const save = (repos, callback) => {
   Repo.create(repos, callback);
 }
 
+const find = (callback) => {
+  Repo.find(callback);
+}
+
 module.exports.save = save;
+module.exports.find = find;

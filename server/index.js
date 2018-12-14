@@ -36,7 +36,6 @@ app.post('/repos', function (req, res) {
         return;
       }
 
-      console.log(repos[0]);
       res.sendStatus(200);
     });
 
@@ -44,8 +43,15 @@ app.post('/repos', function (req, res) {
 });
 
 app.get('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should send back the top 25 repos
+  db.find((err, repos) => {
+    if (err) {
+      console.error(err);
+      res.sendStatus(404);
+      return;
+    }
+
+    res.send(repos);
+  });
 });
 
 let port = 1128;
