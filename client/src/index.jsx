@@ -19,9 +19,10 @@ class App extends React.Component {
       method: 'GET',
       contentType: 'application/json',
     })
-    .done(data => {
-      console.log('data type:', typeof data);
-      console.log(data);
+    .done(repos => {
+      console.log('repos type:', typeof repos);
+      console.log(repos);
+      this.setState({ repos: repos })
     });
   }
 
