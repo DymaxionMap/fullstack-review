@@ -8,14 +8,12 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 
 app.post('/repos', function (req, res) {
-  // This route should take the github username provided
-  // and get the repo information from the github API, then
-  // save the repo information in the database
-
   const { username } = req.body;
   github.getReposByUsername(username, (err, githubResponse, githubResponseBody) => {
     if (err) {
-      throw err;
+      console.error(err);
+      res.sendStatus(404);
+      return;
     }
 
     const githubRepos = JSON.parse(githubResponseBody);
@@ -33,12 +31,15 @@ app.post('/repos', function (req, res) {
 
     db.save(repos, (err, repos) => {
       if (err) {
-        throw err;
+        console.error(err);
+        res.sendStatus(404);
+        return;
       }
 
       console.log(repos[0]);
-      res.send(repos[0]);
+      res.sendStatus(200);
     });
+
   });
 });
 
