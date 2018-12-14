@@ -4,6 +4,8 @@ const github = require('../helpers/github.js');
 const db = require('../database');
 let app = express();
 
+const NUM_REPOS = 25;
+
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 
@@ -50,7 +52,10 @@ app.get('/repos', function (req, res) {
       return;
     }
 
-    res.send(repos);
+    console.log('repos:', repos);
+    repos.sort((a, b) => b.starsCount - a.starsCount );
+    console.log('sorted repos:', repos);
+    res.send(repos.slice(0, NUM_REPOS));
   });
 });
 

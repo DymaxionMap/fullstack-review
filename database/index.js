@@ -13,6 +13,13 @@ const repoSchema = new mongoose.Schema({
 
 const Repo = mongoose.model('Repo', repoSchema);
 
+// FOR TESTING PURPOSES
+// Repo.deleteMany(err => {
+//   if (err) {
+//     throw err;
+//   }
+// });
+
 const save = (repos, callback) => {
   Repo.create(repos, callback);
 }
