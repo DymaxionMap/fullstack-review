@@ -17,9 +17,25 @@ app.post('/repos', function (req, res) {
       throw err;
     }
 
-    console.log('Github response body:');
-    console.log(githubResponseBody)
-    res.send(githubResponseBody);
+    const githubRepos = JSON.parse(githubResponseBody);
+
+    console.log(githubRepos[0]);
+
+    const repos = githubRepos.map(repo => {
+      return ({
+        repoId: repo.id,
+        name: repo.name,
+        username: repo.owner.login,
+        url: repo.html_url,
+        description: repo.description,
+        starsCount: repo.stargazers_count,
+        forksCount: repo.watchers_count,
+      });
+    });
+
+    console.log(repos[0]);
+
+    res.send(repos[0]);
   });
 });
 
