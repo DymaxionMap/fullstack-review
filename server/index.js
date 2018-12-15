@@ -17,6 +17,12 @@ app.post('/repos', function (req, res) {
     }
 
     const githubRepos = JSON.parse(githubResponseBody);
+
+    if (!githubRepos || !Array.isArray(githubRepos) || githubRepos.message === 'Not Found') {
+      res.sendStatus(404);
+      return;
+    }
+
     const repos = githubRepos.map(repo => {
       return ({
         repoId: repo.id,
