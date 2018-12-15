@@ -6,7 +6,7 @@ const RepoList = (props) => {
       <ul>
         <li>name: {repo.name}</li>
         <li>username: {repo.username}</li>
-        <li>url: {repo.url}</li>
+        <li>url: <a href={repo.url}>{repo.url}</a></li>
         <li>description: {repo.description}</li>
         <li>stars: {repo.starsCount}</li>
       </ul>
