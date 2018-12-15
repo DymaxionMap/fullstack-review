@@ -36,14 +36,7 @@ app.post('/repos', function (req, res) {
         return;
       }
 
-      db.find((err, latestRepos) => {
-        if (err) {
-          console.error(err);
-          res.sendStatus(404);
-        }
-
-        res.send(latestRepos);
-      });
+      res.sendStatus(200);
     });
 
   });

@@ -10,10 +10,9 @@ class App extends React.Component {
     this.state = { 
       repos: []
     }
-
   }
 
-  componentDidMount() {
+  getRepos() {
     $.ajax({
       url: '/repos',
       method: 'GET',
@@ -24,6 +23,10 @@ class App extends React.Component {
     });
   }
 
+  componentDidMount() {
+    this.getRepos();
+  }
+
   search (term) {
     console.log(`${term} was searched`);
     $.ajax({
@@ -32,7 +35,7 @@ class App extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify({ username: term }),
     })
-    .done(repos => this.setState({ repos }));
+    .done(() => this.getRepos());
   }
 
   render () {
