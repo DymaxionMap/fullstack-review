@@ -24,8 +24,14 @@ const save = (repos, callback) => {
   Repo.create(repos, callback);
 }
 
+const NUM_REPOS = 25;
+
 const find = (callback) => {
-  Repo.find(callback);
+  Repo.find()
+    .select('name username url description starsCount')
+    .sort({ starsCount: 'descending' })
+    .limit(NUM_REPOS)
+    .exec(callback);
 }
 
 module.exports.save = save;

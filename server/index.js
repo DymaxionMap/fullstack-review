@@ -52,10 +52,7 @@ app.get('/repos', function (req, res) {
       return;
     }
 
-    console.log('repos:', repos);
-    repos.sort((a, b) => b.starsCount - a.starsCount );
-    console.log('sorted repos:', repos);
-    res.send(repos.slice(0, NUM_REPOS));
+    res.send(repos);
   });
 });
 
