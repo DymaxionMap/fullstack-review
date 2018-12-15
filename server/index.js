@@ -4,8 +4,6 @@ const github = require('../helpers/github.js');
 const db = require('../database');
 let app = express();
 
-const NUM_REPOS = 25;
-
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 
@@ -38,7 +36,14 @@ app.post('/repos', function (req, res) {
         return;
       }
 
-      res.sendStatus(200);
+      db.find((err, latestRepos) => {
+        if (err) {
+          console.error(err);
+          res.sendStatus(404);
+        }
+
+        res.send(latestRepos);
+      });
     });
 
   });

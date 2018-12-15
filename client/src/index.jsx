@@ -20,8 +20,6 @@ class App extends React.Component {
       contentType: 'application/json',
     })
     .done(repos => {
-      console.log('repos type:', typeof repos);
-      console.log(repos);
       this.setState({ repos: repos })
     });
   }
@@ -34,7 +32,7 @@ class App extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify({ username: term }),
     })
-    .done(data => console.log('res data:', data));
+    .done(repos => this.setState({ repos }));
   }
 
   render () {
